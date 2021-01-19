@@ -81,6 +81,12 @@ namespace Utility.EnvironmentVariables
                 var propertyType = property.Value.PropertyType;
 
                 string value = Environment.GetEnvironmentVariable(property.Key);
+
+                if (string.IsNullOrEmpty(value))
+                {
+                    continue;
+                }
+
                 object convertedValue;
 
                 if (propertyType == typeof(bool))
