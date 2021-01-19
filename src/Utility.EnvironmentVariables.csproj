@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.1</Version>
+    <Authors>JP Dillingham</Authors>
+    <Product>Utility.EnvironmentVariables</Product>
+    <PackageProjectUrl>https://github.com/jpdillingham/Utility.EnvironmentVariables</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Description>A C# .NET Class Library containing tools for populating properties from environment variables.</Description>
+    <Copyright>Copyright (c) JP Dillingham (jp@dillingham.ws)</Copyright>
+    <RepositoryUrl>https://github.com/jpdillingham/Utility.EnvironmentVariables</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>csharp environment-variables envars dotnet</PackageTags>
+    <NeutralLanguage>en-US</NeutralLanguage>
+  </PropertyGroup>
+</Project>
