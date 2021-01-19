@@ -107,7 +107,7 @@ namespace Utility.EnvironmentVariables
                     // populate the list
                     foreach (object v in value.Split(',').Select(s => s.Trim()))
                     {
-                        valueList.Add(ChangeType(v, property.Key, property.Value));
+                        valueList.Add(ChangeType(v, property.Key, valueType));
                     }
 
                     if (propertyType.IsArray)
@@ -128,7 +128,7 @@ namespace Utility.EnvironmentVariables
                 }
                 else
                 {
-                    convertedValue = ChangeType(value, property.Key, property.Value);
+                    convertedValue = ChangeType(value, property.Key, property.Value.PropertyType);
                 }
 
                 property.Value.SetValue(null, convertedValue);
@@ -149,22 +149,20 @@ namespace Utility.EnvironmentVariables
             return callingMethod.DeclaringType;
         }
 
-        private static object ChangeType(object value, string name, PropertyInfo property)
+        private static object ChangeType(object value, string name, Type type)
         {
-            var toType = property.PropertyType;
-
             try
             {
-                if (toType.IsEnum)
+                if (type.IsEnum)
                 {
-                    return Enum.Parse(toType, (string)value, true);
+                    return Enum.Parse(type, (string)value, true);
                 }
 
-                return Convert.ChangeType(value, toType, CultureInfo.InvariantCulture);
+                return Convert.ChangeType(value, type, CultureInfo.InvariantCulture);
             }
             catch (Exception ex) when (ex is InvalidCastException || ex is FormatException || ex is OverflowException || ex is ArgumentNullException)
             {
-                string message = $"Failed to convert value '{value}' to target type {toType}";
+                string message = $"Failed to convert value '{value}' to target type {type}";
                 throw new ArgumentException(message, name, ex);
             }
         }
