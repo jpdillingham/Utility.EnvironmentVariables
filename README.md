@@ -1,7 +1,7 @@
 # Utility.EnvironmentVariables
 
-[![NuGet version](https://img.shields.io/nuget/v/Utility.CommandLine.Arguments.svg)](https://www.nuget.org/packages/Utility.CommandLine.Arguments/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/jpdillingham/Utility.CommandLine.Arguments/blob/master/LICENSE)
+[![NuGet version](https://img.shields.io/nuget/v/Utility.EnvironmentVariables.svg)](https://www.nuget.org/packages/Utility.EnvironmentVariables/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/jpdillingham/Utility.EnvironmentVariables/blob/master/LICENSE)
 
 A C# .NET Class Library containing tools for populating properties from environment variables.
 
