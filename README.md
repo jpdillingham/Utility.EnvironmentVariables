@@ -45,7 +45,7 @@ internal class Program
         
     private static void Main(string[] args)
     {
-        Arguments.Populate();
+        EnvironmentVariables.Populate();
 
         Console.WriteLine("Bool: " + Bool);
         Console.WriteLine("Double: " + Double);
@@ -57,3 +57,5 @@ internal class Program
     }
 }
 ```
+
+Note that for boolean values, anything other than a string that parses to `True` is considered to be `False`.
