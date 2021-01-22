@@ -73,7 +73,19 @@ namespace Utility.EnvironmentVariables
         /// <param name="caller">Internal parameter used to identify the calling method.</param>
         public static void Populate([CallerMemberName] string caller = default(string))
         {
-            var type = GetCallingType(caller);
+            Populate(GetCallingType(caller));
+        }
+
+        /// <summary>
+        ///     Populates the properties in the invoking class marked with the
+        ///     <see cref="EnvironmentVariableAttribute"/><see cref="Attribute"/> with the values specified in environment variables.
+        /// </summary>
+        /// <param name="type">
+        ///     The Type for which the static properties matching the list of environment variables are to be populated.
+        /// </param>
+        /// <param name="caller">Internal parameter used to identify the calling method.</param>
+        public static void Populate(Type type)
+        {
             var targetProperties = GetTargetProperties(type);
 
             foreach (var property in targetProperties)
