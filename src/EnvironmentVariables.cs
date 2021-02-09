@@ -41,7 +41,7 @@ namespace Utility.EnvironmentVariables
 
     /// <summary>
     ///     Indicates that the property is to be used as a target for automatic population of values from environment variables
-    ///     when invoking the <see cref="EnvironmentVariables.Populate(string)"/> method.
+    ///     when invoking the <see cref="EnvironmentVariables.Populate(Type, string)"/> method.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class EnvironmentVariableAttribute : Attribute
@@ -71,9 +71,10 @@ namespace Utility.EnvironmentVariables
         ///     <see cref="EnvironmentVariableAttribute"/><see cref="Attribute"/> with the values specified in environment variables.
         /// </summary>
         /// <param name="caller">Internal parameter used to identify the calling method.</param>
-        public static void Populate([CallerMemberName] string caller = default(string))
+        /// <param name="prefix">The optional prefix for variable names.</param>
+        public static void Populate(string prefix = null, [CallerMemberName] string caller = default)
         {
-            Populate(GetCallingType(caller));
+            Populate(GetCallingType(caller), prefix);
         }
 
         /// <summary>
@@ -83,16 +84,18 @@ namespace Utility.EnvironmentVariables
         /// <param name="type">
         ///     The Type for which the static properties matching the list of environment variables are to be populated.
         /// </param>
-        /// <param name="caller">Internal parameter used to identify the calling method.</param>
-        public static void Populate(Type type)
+        /// <param name="prefix">The optional prefix for variable names.</param>
+        public static void Populate(Type type, string prefix = "")
         {
+            prefix ??= string.Empty;
+
             var targetProperties = GetTargetProperties(type);
 
             foreach (var property in targetProperties)
             {
                 var propertyType = property.Value.PropertyType;
 
-                string value = Environment.GetEnvironmentVariable(property.Key);
+                string value = Environment.GetEnvironmentVariable(prefix + property.Key);
 
                 if (string.IsNullOrEmpty(value))
                 {
@@ -159,7 +162,7 @@ namespace Utility.EnvironmentVariables
                 .Select(f => f.GetMethod())
                 .FirstOrDefault(m => m.Name == caller);
 
-            if (callingMethod == default(MethodBase))
+            if (callingMethod == default)
             {
                 throw new InvalidOperationException($"Unable to determine the containing type of the calling method '{caller}'.  Explicitly specify the originating Type.");
             }
